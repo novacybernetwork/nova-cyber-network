@@ -45,16 +45,28 @@ export const leadership: LeadershipMember[] = [
     initials: "SP",
   },
   {
-    id: "outreach-director",
+    id: "outreach-director-ronnie",
     name: "Ronnie Routray",
-    role: "Outreach Director",
-    bio: "Leads student outreach and communications, helping students across participating schools find and join the community.",
+    role: "Outreach Co-Director",
+    bio: "Co-leads student outreach and communications, helping students across participating schools find and join the community.",
     responsibilities: [
       "Leads student outreach and recruitment",
       "Manages communications with members",
       "Helps connect students across participating schools",
     ],
     initials: "RR",
+  },
+  {
+    id: "outreach-director-anish",
+    name: "Anish Chiluvuri",
+    role: "Outreach Co-Director",
+    bio: "Co-leads student outreach and recruitment, working alongside Ronnie to grow the community across schools and keep members engaged.",
+    responsibilities: [
+      "Co-leads student outreach and recruitment",
+      "Supports member communications",
+      "Helps connect students across participating schools",
+    ],
+    initials: "AC",
   },
   {
     id: "operations-financial-director",
