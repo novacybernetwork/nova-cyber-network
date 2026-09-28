@@ -51,7 +51,7 @@ export const siteConfig = {
      * lights up the moment you paste a real invite link here.
      */
     communityChat: "",
-    github: "https://github.com/vatsanbalaji/nova-cyber-network",
+    github: "https://github.com/novacybernetwork",
     linkedin: "",
   },
 
