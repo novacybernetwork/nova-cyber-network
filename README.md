@@ -55,13 +55,6 @@ footer disclaimer, and social preview images.
   shows a disabled "Community Chat Coming Soon" state while this is blank,
   and switches to a real link the moment you fill it in — no other code
   changes needed.
-- **GitHub organization.** `links.github` currently points at this repo
-  (`https://github.com/vatsanbalaji/nova-cyber-network`). If/when a
-  `nova-cyber-network`-style GitHub Organization is created (GitHub only
-  allows creating orgs through the web UI, not the API — go to
-  [github.com/account/organizations/new](https://github.com/account/organizations/new)),
-  update `links.github` to point there instead, and optionally transfer this
-  repo into it from the repo's Settings tab.
 - **`siteConfig.url`** — still the placeholder Vercel-style URL. Update it
   once the site has a real deployed URL (see Deploying, below).
 
@@ -89,10 +82,14 @@ serves static files — no always-on Node server required.
 
 ### Render (Static Site)
 
-1. Push this repository to GitHub (or GitLab).
+1. This repo already lives on GitHub at
+   [github.com/novacybernetwork/nova-cyber-network](https://github.com/novacybernetwork/nova-cyber-network).
 2. In the Render dashboard, click **New > Static Site** and connect the repo.
-   (A [`render.yaml`](render.yaml) blueprint is already included — you can
-   instead use **New > Blueprint** to have Render read it automatically.)
+   Since it's under the `novacybernetwork` organization, Render's repo picker
+   will prompt you to grant its GitHub App access to that org the first time
+   — approve it, then the repo will show up. (A [`render.yaml`](render.yaml)
+   blueprint is already included — you can instead use **New > Blueprint** to
+   have Render read it automatically.)
 3. If configuring manually, set:
    - **Build Command**: `npm install && npm run build`
    - **Publish Directory**: `out`
