@@ -9,7 +9,7 @@ export function Footer() {
 
   const socials = [
     { label: "GitHub", href: siteConfig.links.github, icon: GithubIcon },
-    { label: "Discord", href: siteConfig.links.discord, icon: MessageCircle },
+    { label: "Community Chat", href: siteConfig.links.communityChat, icon: MessageCircle },
     { label: "LinkedIn", href: siteConfig.links.linkedin, icon: LinkedinIcon },
   ].filter((social) => social.href);
 

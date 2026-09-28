@@ -31,9 +31,20 @@ export default function JoinPage() {
             <Button href={siteConfig.links.joinForm} variant="primary" target="_blank" rel="noreferrer noopener">
               Join Interest Form
             </Button>
-            <Button href={siteConfig.links.discord} variant="secondary" target="_blank" rel="noreferrer noopener">
-              Join Discord
-            </Button>
+            {siteConfig.links.communityChat ? (
+              <Button
+                href={siteConfig.links.communityChat}
+                variant="secondary"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Join the Chat
+              </Button>
+            ) : (
+              <Button variant="disabled" disabled>
+                Community Chat Coming Soon
+              </Button>
+            )}
           </Reveal>
           <Reveal delayMs={100}>
             <p className="mt-6 text-sm text-muted">

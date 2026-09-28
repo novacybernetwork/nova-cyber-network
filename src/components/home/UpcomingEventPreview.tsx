@@ -29,7 +29,8 @@ export function UpcomingEventPreview() {
         ) : (
           <Reveal delayMs={120} className="mt-10">
             <p className="text-muted">
-              No events are scheduled yet — check back soon, or join the Discord to hear first.
+              No events are scheduled yet — check back soon, or fill out the interest form to
+              hear first.
             </p>
           </Reveal>
         )}

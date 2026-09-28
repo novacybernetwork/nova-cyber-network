@@ -35,17 +35,23 @@ export const siteConfig = {
   description:
     "An independent student-led cybersecurity community connecting high school students through CTF competitions, workshops, resources, and cybersecurity competition preparation.",
 
-  /** Deployed site URL. Update after your first Vercel deploy. */
+  /** Deployed site URL. Update after your first Render/Vercel deploy. */
   url: "https://nova-cyber-network.vercel.app",
 
-  /** Public contact email. Replace with a real inbox before launch. */
-  email: "[CLUB EMAIL]",
+  /** Public contact email. */
+  email: "novacybernetwork@gmail.com",
 
   /** External links — paste your real URLs here once they exist. */
   links: {
-    joinForm: "[JOIN_INTEREST_FORM_URL]",
-    discord: "[DISCORD_INVITE_URL]",
-    github: "[GITHUB_ORG_URL]",
+    joinForm: "https://forms.gle/36yxFqjLJC29wZBW8",
+    /**
+     * Real-time community chat link. Empty until a platform is picked
+     * (WhatsApp/GroupMe/Discord/etc.) — every "Join the Chat" button
+     * automatically shows a "Coming Soon" state while this is blank, and
+     * lights up the moment you paste a real invite link here.
+     */
+    communityChat: "",
+    github: "https://github.com/vatsanbalaji/nova-cyber-network",
     linkedin: "",
   },
 

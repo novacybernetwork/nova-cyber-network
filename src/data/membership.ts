@@ -15,8 +15,9 @@ export const joinSteps: JoinStep[] = [
     description: "Tell us a bit about yourself so we can keep you in the loop.",
   },
   {
-    title: "Join the Discord community",
-    description: "This is where announcements, discussion, and event planning happen.",
+    title: "Join the community chat",
+    description:
+      "We're setting up a group chat for real-time announcements and discussion — the interest form is the fastest way to get the invite as soon as it's live.",
   },
   {
     title: "Watch for upcoming events",

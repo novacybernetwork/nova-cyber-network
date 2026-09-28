@@ -1,8 +1,8 @@
 /**
  * Leadership roster.
  *
- * Replace the placeholder `name` fields with real names when ready. Leave
- * `github` / `linkedin` as empty strings to hide those links on a card.
+ * Leave `github` / `linkedin` unset (or empty strings) to hide those links
+ * on a card.
  */
 
 export interface LeadershipMember {
@@ -19,7 +19,7 @@ export interface LeadershipMember {
 export const leadership: LeadershipMember[] = [
   {
     id: "president",
-    name: "[YOUR NAME]",
+    name: "Srivatsan Balaji",
     role: "Founder & President",
     bio: "Leads the organization and sets its overall direction, from partnerships and expansion to the coordination of major events.",
     responsibilities: [
@@ -29,13 +29,11 @@ export const leadership: LeadershipMember[] = [
       "Coordinates major events",
       "Oversees leadership and long-term planning",
     ],
-    initials: "YN",
-    github: "",
-    linkedin: "",
+    initials: "SB",
   },
   {
     id: "ctf-technical-director",
-    name: "[TECHNICAL DIRECTOR NAME]",
+    name: "Sidhanth Poduri",
     role: "CTF & Technical Director",
     bio: "Leads the design of CTF challenges and the organization's technical resources, and supports members preparing for CyberPatriot and NCL.",
     responsibilities: [
@@ -44,23 +42,31 @@ export const leadership: LeadershipMember[] = [
       "Helps organize workshops",
       "Supports CyberPatriot and NCL preparation",
     ],
-    initials: "TD",
-    github: "",
-    linkedin: "",
+    initials: "SP",
   },
   {
-    id: "outreach-operations-director",
-    name: "[OPERATIONS DIRECTOR NAME]",
-    role: "Outreach & Operations Director",
-    bio: "Manages member communications and event logistics, and leads outreach so students across participating schools can find and join the community.",
+    id: "outreach-director",
+    name: "Ronnie Routray",
+    role: "Outreach Director",
+    bio: "Leads student outreach and communications, helping students across participating schools find and join the community.",
     responsibilities: [
-      "Manages communications with members",
-      "Coordinates event logistics",
       "Leads student outreach and recruitment",
+      "Manages communications with members",
       "Helps connect students across participating schools",
     ],
-    initials: "OD",
-    github: "",
-    linkedin: "",
+    initials: "RR",
+  },
+  {
+    id: "operations-financial-director",
+    name: "Anish Kisari",
+    role: "Operations & Financial Management Director",
+    bio: "Coordinates event logistics and manages the organization's finances, from budgeting to funding events and challenges.",
+    responsibilities: [
+      "Coordinates event logistics",
+      "Manages organization finances and budgeting",
+      "Handles funding, expenses, and reimbursements",
+      "Supports resource planning for events",
+    ],
+    initials: "AK",
   },
 ];

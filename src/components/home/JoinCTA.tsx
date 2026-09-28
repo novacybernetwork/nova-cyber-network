@@ -21,13 +21,19 @@ export function JoinCTA() {
           <Button href="/join" variant="primary" icon={<ArrowRight className="h-4 w-4" />}>
             Join Interest Form
           </Button>
-          <Button
-            href={siteConfig.links.discord}
-            variant="secondary"
-            icon={<MessageCircle className="h-4 w-4" />}
-          >
-            Join Discord
-          </Button>
+          {siteConfig.links.communityChat ? (
+            <Button
+              href={siteConfig.links.communityChat}
+              variant="secondary"
+              icon={<MessageCircle className="h-4 w-4" />}
+            >
+              Join the Chat
+            </Button>
+          ) : (
+            <Button variant="disabled" disabled icon={<MessageCircle className="h-4 w-4" />}>
+              Community Chat Coming Soon
+            </Button>
+          )}
         </div>
       </Reveal>
     </section>

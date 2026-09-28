@@ -18,15 +18,15 @@ export const metadata: Metadata = {
 const howItWorks = [
   {
     icon: MessagesSquare,
-    title: "A Discord-first community",
+    title: "A community chat, on the way",
     description:
-      "Announcements, discussion, and event planning happen in our Discord server — that's the hub for everything.",
+      "We're setting up a group chat for real-time announcements and discussion. Until it's live, the interest form and this site are the best way to stay in the loop.",
   },
   {
     icon: Radar,
     title: "Events posted as they're ready",
     description:
-      "CTFs, workshops, and competition-prep sessions are announced with plenty of notice on the Events page and in Discord.",
+      "CTFs, workshops, and competition-prep sessions are announced with plenty of notice on the Events page.",
   },
   {
     icon: Users2,

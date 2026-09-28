@@ -53,7 +53,7 @@ export const events: CyberEvent[] = [
     slug: "ctf-1",
     name: "CTF #1",
     status: "upcoming",
-    date: "[DATE TBD]",
+    date: "October 6, 2026",
     location: "Online",
     experienceLevel: "Beginner to Intermediate",
     description:

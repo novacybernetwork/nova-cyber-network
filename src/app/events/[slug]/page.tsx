@@ -92,7 +92,10 @@ export default async function EventDetailPage({
                   {event.registrationLabel ?? "Registration Coming Soon"}
                 </p>
                 <p className="mt-1 text-sm text-muted">
-                  Join the Discord to be notified the moment registration opens.
+                  <Link href="/join" className="font-medium text-accent hover:underline">
+                    Fill out the interest form
+                  </Link>{" "}
+                  to be notified the moment registration opens.
                 </p>
               </div>
             </div>

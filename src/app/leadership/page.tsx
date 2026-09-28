@@ -20,7 +20,7 @@ export default function LeadershipPage() {
 
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2">
             {leadership.map((member, index) => (
               <Reveal key={member.id} delayMs={index * 80}>
                 <LeadershipCard member={member} />

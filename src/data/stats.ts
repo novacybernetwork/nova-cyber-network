@@ -14,8 +14,8 @@ export interface Stat {
 }
 
 export const stats: Stat[] = [
-  { label: "Members", value: "—" }, // TODO: set your current member count
-  { label: "Schools Represented", value: "—" }, // TODO: set your current school count
+  { label: "Members", value: "35" },
+  { label: "Schools Represented", value: "3" },
   { label: "CTFs Hosted", value: "0" },
   { label: "Challenges Released", value: "0" },
 ];
