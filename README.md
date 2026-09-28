@@ -47,21 +47,28 @@ The organization name is a single config value:
 Change it there and it updates everywhere — navbar, footer, page titles, the
 footer disclaimer, and social preview images.
 
-### Placeholders you should fill in before launch
+### Still open
 
-Search the codebase for square-bracket placeholders and replace them with
-real values:
+- **Community chat.** `links.communityChat` in `src/config/site.ts` is
+  currently `""` — no platform has been picked yet (WhatsApp/GroupMe/Discord
+  are all options). Every "Join the Chat" button on the site automatically
+  shows a disabled "Community Chat Coming Soon" state while this is blank,
+  and switches to a real link the moment you fill it in — no other code
+  changes needed.
+- **GitHub organization.** `links.github` currently points at this repo
+  (`https://github.com/vatsanbalaji/nova-cyber-network`). If/when a
+  `nova-cyber-network`-style GitHub Organization is created (GitHub only
+  allows creating orgs through the web UI, not the API — go to
+  [github.com/account/organizations/new](https://github.com/account/organizations/new)),
+  update `links.github` to point there instead, and optionally transfer this
+  repo into it from the repo's Settings tab.
+- **`siteConfig.url`** — still the placeholder Vercel-style URL. Update it
+  once the site has a real deployed URL (see Deploying, below).
 
-- `src/config/site.ts` — `email`, `links.joinForm`, `links.discord`,
-  `links.github`, and `links.linkedin` (leave `linkedin` as an empty string
-  to hide that footer icon).
-- `src/data/leadership.ts` — `[YOUR NAME]`, `[TECHNICAL DIRECTOR NAME]`,
-  `[OPERATIONS DIRECTOR NAME]`.
-- `src/data/stats.ts` — replace the `"—"` placeholders for Members and
-  Schools Represented with real counts once you have them. `CTFs Hosted`
-  and `Challenges Released` are intentionally `0` — update them honestly
-  as events actually happen.
-- `src/data/events.ts` — `[DATE TBD]` on `CTF #1` once a date is set.
+Everything else — email, interest form, leadership names/roles, member and
+school counts, and the CTF #1 date — is filled in with real values in
+`src/config/site.ts`, `src/data/leadership.ts`, `src/data/stats.ts`, and
+`src/data/events.ts`.
 
 ### Adding a new event
 
