@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Page not found — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto flex min-h-[70vh] max-w-lg flex-col items-center justify-center px-4 text-center">
+  <p class="font-mono text-sm text-cyan">404</p>
+  <h1 class="mt-2 font-display text-3xl font-semibold text-ink">Page not found</h1>
+  <p class="mt-2 text-sm text-ink-muted">That path doesn't exist on NOVA Cyber Network.</p>
+  <a href="/" class="btn-primary mt-6 inline-flex">Back to home</a>
+</div>
+{% endblock %}

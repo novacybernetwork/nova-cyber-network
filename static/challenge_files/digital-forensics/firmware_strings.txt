@@ -1,0 +1,23 @@
+loading bootloader v2.3.1
+init_hardware() -> OK
+mounting /dev/mtdblock0
+CONFIG_WIFI_SSID=NOVA-IOT-DEFAULT
+CONFIG_WIFI_PASS=changeme123
+starting watchdog timer
+/lib/libssl.so.1.1
+/lib/libcrypto.so.1.1
+fsck.ext4: clean, 1024/65536 files
+starting telnetd on port 23
+debug_mode=0
+starting httpd
+GET /cgi-bin/status.cgi
+POST /cgi-bin/upload.cgi
+malloc failed at 0x1004ab00
+NOVA{strings_find_what_grep_misses}
+checksum verified: 0x9f3a21bc
+reboot scheduled in 300s
+vendor=nova-iot-labs
+model=NC-100
+serial=NC100-884213
+build_date=2026-03-11
+EOF_OF_DUMP

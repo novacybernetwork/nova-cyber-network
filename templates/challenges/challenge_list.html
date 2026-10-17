@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Challenges — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+  <p class="section-label">Challenge set</p>
+  <h1 class="mt-2 font-display text-3xl font-semibold text-ink">Challenges</h1>
+
+  {% if locked %}
+  <div class="glass-card mt-10 flex flex-col items-center gap-3 p-12 text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-cyan"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <h2 class="font-display text-xl font-semibold text-ink">Challenges are locked</h2>
+    <p class="max-w-md text-sm text-ink-muted">Challenges unlock the moment the competition goes live. Organize your team now so you're ready.</p>
+    <a href="{% url 'teams:team_list' %}" class="btn-secondary mt-2">Manage your team</a>
+  </div>
+  {% else %}
+  <form method="get" class="mt-6 flex flex-wrap gap-3">
+    <select name="category" class="input w-auto" onchange="this.form.submit()">
+      <option value="">All categories</option>
+      {% for c in categories %}<option value="{{ c.slug }}" {% if c.slug == selected_category %}selected{% endif %}>{{ c.name }}</option>{% endfor %}
+    </select>
+    <select name="difficulty" class="input w-auto" onchange="this.form.submit()">
+      <option value="">All difficulties</option>
+      <option value="easy" {% if selected_difficulty == "easy" %}selected{% endif %}>Easy</option>
+      <option value="medium" {% if selected_difficulty == "medium" %}selected{% endif %}>Medium</option>
+      <option value="hard" {% if selected_difficulty == "hard" %}selected{% endif %}>Hard</option>
+    </select>
+    {% if selected_category or selected_difficulty %}<a href="{% url 'challenges:challenge_list' %}" class="btn-ghost">Clear</a>{% endif %}
+  </form>
+
+  {% for category, cat_challenges in challenges_by_category %}
+  <div class="mt-10">
+    <h2 class="flex items-center gap-2 font-display text-xl font-semibold text-ink">{{ category.name }}</h2>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {% for c in cat_challenges %}
+      <a href="{% url 'challenges:challenge_detail' slug=c.slug %}" class="glass-card-hover flex flex-col gap-3 p-5">
+        <div class="flex items-start justify-between">
+          <h3 class="font-semibold text-ink">{{ c.title }}</h3>
+          {% if c.id in solved_ids %}
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="shrink-0 text-green"><path d="M20 6 9 17l-5-5"/></svg>
+          {% endif %}
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          {% if c.difficulty == "easy" %}<span class="badge-easy">Easy</span>
+          {% elif c.difficulty == "medium" %}<span class="badge-medium">Medium</span>
+          {% else %}<span class="badge-hard">Hard</span>{% endif %}
+          <span class="badge-neutral">{{ c.points }} pts</span>
+          <span class="badge-neutral">{{ c.total_solves }} solve{{ c.total_solves|pluralize }}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% empty %}
+  <div class="glass-card mt-10 p-12 text-center text-sm text-ink-muted">No challenges match these filters yet.</div>
+  {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

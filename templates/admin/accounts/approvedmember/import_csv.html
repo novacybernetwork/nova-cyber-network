@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Import NOVA membership roster</h1>
+<p>Upload a CSV with columns <code>name,email,school</code>. Existing emails are skipped (no duplicates are created).
+  Imported members can claim their account via a personal invite link (visible on each roster entry) &mdash; no passwords
+  are generated or emailed by this tool.</p>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Import" class="default">
+</form>
+{% endblock %}

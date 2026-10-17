@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Leaderboard — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-5xl px-4 py-14 sm:px-6">
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <p class="section-label">Live standings</p>
+      <h1 class="mt-2 font-display text-3xl font-semibold text-ink">Leaderboard</h1>
+    </div>
+    {% if is_frozen %}<span class="badge-cyan">Scoreboard frozen</span>
+    {% elif competition.status == "live" %}<span class="badge-live"><span class="h-1.5 w-1.5 rounded-full bg-green animate-pulse"></span> Updates every 15s</span>{% endif %}
+  </div>
+
+  <div class="glass-card mt-6 overflow-x-auto">
+    <table class="w-full text-left">
+      <thead class="border-b border-border-subtle text-xs uppercase tracking-wider text-ink-muted">
+        <tr>
+          <th class="px-4 py-3">Rank</th>
+          <th class="px-4 py-3">Team</th>
+          <th class="px-4 py-3">Points</th>
+          <th class="px-4 py-3">Solves</th>
+          <th class="px-4 py-3">Last solve (UTC)</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body" hx-get="{% url 'leaderboard_rows' %}" hx-trigger="every 15s" hx-swap="innerHTML">
+        {% include "teams/_leaderboard_rows.html" %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-10">
+    <p class="section-label">Recent activity</p>
+    <div class="mt-4 space-y-2">
+      {% for solve in activity %}
+      <div class="glass-card flex items-center justify-between px-4 py-3 text-sm">
+        <span class="text-ink"><span class="text-cyan-soft">{{ solve.team.name }}</span> solved <span class="text-ink-muted">{{ solve.challenge.title }}</span></span>
+        <span class="font-mono text-xs text-ink-faint">{{ solve.solved_at|date:"M j, H:i:s" }}</span>
+      </div>
+      {% empty %}
+      <div class="glass-card px-4 py-6 text-center text-sm text-ink-faint">No solves yet &mdash; be the first!</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+=== NOVA-VM: a tiny stack machine ===
+
+We captured the output of a program running on a custom stack VM. The VM's
+encoder is simple (reverse-engineer it from this spec — the real binary isn't
+included, just its documented behavior and its output):
+
+For every input byte `c` (one byte of the flag), the VM emits a single output
+byte `b` computed as:
+
+    b = (c XOR 0x37 + 5) mod 256      # XOR first, then add 5, then wrap at 256
+
+Captured program output (hex bytes, one per flag character, in order):
+
+7e 7d 66 7b 51 46 63 4a 48 47 5b 60 6d 5f 5b 59 64 63 5e 57 49 6d 64 63 58 57
+6d 49 57 59 4a 57 48 49 4f
+
+Recover the original input (the flag) by reversing the VM's math for each byte.
+Writing a short script will be much faster than doing this by hand.

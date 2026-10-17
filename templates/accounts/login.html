@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Sign in — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-4 py-16 sm:px-6">
+  <div class="glass-card p-8">
+    <p class="section-label">Access</p>
+    <h1 class="mt-2 font-display text-2xl font-semibold text-ink">Sign in</h1>
+    <p class="mt-1 text-sm text-ink-muted">Use the account you created from your invite link.</p>
+
+    <form method="post" class="mt-6 space-y-4">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      <div class="rounded-lg border border-danger/40 bg-danger/10 px-4 py-2 text-sm text-danger">
+        {{ form.non_field_errors|join:" " }}
+      </div>
+      {% endif %}
+      <div>
+        <label class="label" for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}
+      </div>
+      <div>
+        <label class="label" for="{{ form.password.id_for_label }}">Password</label>
+        {{ form.password }}
+      </div>
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit" class="btn-primary w-full">Sign in</button>
+    </form>
+
+    <div class="mt-6 flex flex-col gap-1 text-center text-sm text-ink-muted">
+      <a href="{% url 'accounts:password_reset' %}" class="text-cyan-soft hover:underline">Forgot your password?</a>
+      <a href="{% url 'accounts:request_access' %}" class="text-cyan-soft hover:underline">Not on the roster yet? Request access</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

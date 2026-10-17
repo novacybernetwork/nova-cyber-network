@@ -1,0 +1,14 @@
+=== EXIF-style metadata dump (fictional sample photo) ===
+
+File: conference_badge_photo.jpg (synthetic sample — no real image attached)
+Make: NovaCam
+Model: NC-X1
+DateTimeOriginal: 2026:10:16 14:32:07
+GPSLatitude: 38.9586 N
+GPSLongitude: 77.3570 W
+Orientation: 1
+Software: NovaCam Editor 3.2
+Comment: 4e4f56417b6d657461646174615f74656c6c735f615f73746f72797d
+
+Trainee note: the Comment field is free text and often gets overlooked.
+This sample is entirely synthetic — no real photograph or location data.

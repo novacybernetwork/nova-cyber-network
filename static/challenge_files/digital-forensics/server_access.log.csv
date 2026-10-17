@@ -1,0 +1,13 @@
+timestamp,ip,method,path,status,user_agent
+2026-10-17T00:02:11Z,198.51.100.12,GET,/,200,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+2026-10-17T00:02:44Z,198.51.100.12,GET,/login,200,Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+2026-10-17T00:03:02Z,203.0.113.44,GET,/api/v1/status,200,curl/8.4.0
+2026-10-17T00:03:55Z,203.0.113.44,POST,/api/v1/login,401,curl/8.4.0
+2026-10-17T00:04:10Z,198.51.100.77,GET,/,200,Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15
+2026-10-17T00:05:33Z,192.0.2.5,GET,/health,200,python-requests/2.31.0
+2026-10-17T00:06:09Z,192.0.2.5,GET,/debug,404,python-requests/2.31.0
+2026-10-17T00:07:21Z,198.51.100.201,GET,/,200,Mozilla/5.0 (X11; Linux x86_64) Gecko/20100101 Firefox/118.0
+2026-10-17T00:08:40Z,198.51.100.201,GET,/export?fmt=csv,200,ReportBot/1.0 (+Tk9WQXtsb2dzX25ldmVyX3JlYWxseV9kaXNhcHBlYXJ9)
+2026-10-17T00:09:12Z,203.0.113.9,GET,/,200,Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15
+2026-10-17T00:10:01Z,203.0.113.9,GET,/favicon.ico,200,Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15
+2026-10-17T00:11:18Z,192.0.2.100,GET,/sitemap.xml,200,Googlebot/2.1 (+http://www.google.com/bot.html)

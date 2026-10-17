@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Pending review — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-4 py-16 sm:px-6 text-center">
+  <div class="glass-card p-8">
+    <div class="badge-cyan mx-auto">Pending review</div>
+    <h1 class="mt-4 font-display text-2xl font-semibold text-ink">Almost there, {{ member.name }}</h1>
+    <p class="mt-2 text-sm text-ink-muted">
+      Your access request is waiting on administrator approval. You'll be able to claim this link as soon as it's approved.
+    </p>
+    <a href="{% url 'core:home' %}" class="btn-secondary mt-6 inline-flex">Back to home</a>
+  </div>
+</div>
+{% endblock %}

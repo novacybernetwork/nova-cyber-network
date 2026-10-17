@@ -1,0 +1,21 @@
+=== FICTIONAL PROFILE DOSSIER (training exercise — not a real person) ===
+
+Handle: n0va_fan_22
+Display Name: "Casey R."
+Joined: March 2024
+Location tag (self-reported): "Somewhere in NoVA"
+Favorite quote: "The best part of OSINT is that people tell you everything, eventually."
+
+Public bio:
+  Cybersecurity club member. Loves CTFs, rock climbing, and bad puns.
+  Still haven't beaten my teammates' high score on the practice board.
+
+Linked accounts (fictional, not real services):
+  - forum post count: 212
+  - last seen: a few days before the big competition
+
+Profile Notes (base64, left public by mistake):
+  Tk9WQXtvc2ludF9pc19qdXN0X3JlYWRpbmdfY2xvc2VseX0=
+
+Reminder for trainees: everything in this file is fabricated for the exercise.
+Never run these techniques against real people or real accounts without authorization.

@@ -1,0 +1,7 @@
+# robots.txt for nova-shop.ctf.local (sample capture)
+User-agent: *
+Disallow: /admin/
+Disallow: /internal/status-9f21.html
+Disallow: /cgi-bin/
+
+Sitemap: https://nova-shop.ctf.local/sitemap.xml

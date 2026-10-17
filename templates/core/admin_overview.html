@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Admin — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <p class="section-label">Organizer tools</p>
+      <h1 class="mt-2 font-display text-3xl font-semibold text-ink">Admin overview</h1>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <a href="{% url 'admin:index' %}" class="btn-secondary">Django Admin</a>
+      <a href="{% url 'core:admin_submission_logs' %}" class="btn-secondary">Submission Logs</a>
+      <a href="{% url 'core:admin_export_results' %}" class="btn-primary">Export Results CSV</a>
+    </div>
+  </div>
+
+  <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+    <div class="stat-tile"><span class="font-display text-2xl font-bold text-cyan">{{ total_users }}</span><span class="text-xs text-ink-muted">Participants</span></div>
+    <div class="stat-tile"><span class="font-display text-2xl font-bold text-green-soft">{{ teams }}</span><span class="text-xs text-ink-muted">Teams</span></div>
+    <div class="stat-tile"><span class="font-display text-2xl font-bold text-purple">{{ challenges }}</span><span class="text-xs text-ink-muted">Challenges</span></div>
+    <div class="stat-tile"><span class="font-display text-2xl font-bold text-cyan-soft">{{ published_challenges }}</span><span class="text-xs text-ink-muted">Published</span></div>
+    <div class="stat-tile"><span class="font-display text-2xl font-bold text-amber">{{ solves }}</span><span class="text-xs text-ink-muted">Solves</span></div>
+    <div class="stat-tile"><span class="font-display text-2xl font-bold text-danger">{{ pending_requests }}</span><span class="text-xs text-ink-muted">Pending Requests</span></div>
+  </div>
+
+  <div class="mt-10 grid gap-6 lg:grid-cols-2">
+    <div class="glass-card p-6">
+      <h2 class="font-display text-lg font-semibold text-ink">Quick links</h2>
+      <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+        <a href="{% url 'admin:accounts_approvedmember_changelist' %}" class="btn-secondary justify-start">Manage roster</a>
+        <a href="{% url 'admin:accounts_approvedmember_import_csv' %}" class="btn-secondary justify-start">Import CSV</a>
+        <a href="{% url 'admin:challenges_challenge_changelist' %}" class="btn-secondary justify-start">Manage challenges</a>
+        <a href="{% url 'admin:teams_team_changelist' %}" class="btn-secondary justify-start">Manage teams</a>
+        <a href="{% url 'admin:competitions_competition_changelist' %}" class="btn-secondary justify-start">Competition settings</a>
+        <a href="{% url 'admin:competitions_announcement_changelist' %}" class="btn-secondary justify-start">Announcements</a>
+        <a href="{% url 'core:admin_export_submissions' %}" class="btn-secondary justify-start">Export submissions</a>
+        <a href="{% url 'admin:core_auditlog_changelist' %}" class="btn-secondary justify-start">Full audit log</a>
+      </div>
+    </div>
+
+    <div class="glass-card p-6">
+      <h2 class="font-display text-lg font-semibold text-ink">Recent activity</h2>
+      <div class="mt-4 space-y-2 text-sm">
+        {% for entry in recent_audit %}
+        <div class="table-row-hover flex items-center justify-between rounded-lg px-2 py-1.5">
+          <span class="text-ink-muted">{{ entry.actor.username|default:"system" }} &middot; {{ entry.action }}</span>
+          <span class="text-xs text-ink-faint">{{ entry.created_at|date:"M j, H:i" }}</span>
+        </div>
+        {% empty %}
+        <p class="text-ink-faint">No activity yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

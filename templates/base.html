@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+  <meta name="description" content="NOVA Cyber Network — a student-led cybersecurity community connecting Northern Virginia high schools through hands-on CTF competitions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+  <link rel="stylesheet" href="{% static 'css/output.css' %}">
+  <script src="https://unpkg.com/htmx.org@2.0.3" defer></script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="min-h-screen flex flex-col">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 btn-secondary z-50">Skip to content</a>
+
+  <header class="sticky top-0 z-40 border-b border-border-subtle bg-void/80 backdrop-blur-xl">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <a href="{% url 'core:home' %}" class="flex items-center gap-2.5 group">
+        {% include "partials/_logo.html" with size=30 %}
+        <span class="font-display text-sm font-semibold tracking-wide text-ink sm:text-base">
+          NOVA <span class="text-cyan-soft">Cyber</span> Network
+        </span>
+      </a>
+
+      <div class="hidden items-center gap-1 lg:flex">
+        <a href="{% url 'core:home' %}" class="{% if request.resolver_match.app_name == 'core' and request.resolver_match.url_name == 'home' %}nav-link-active{% else %}nav-link{% endif %}">Home</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'core:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}nav-link-active{% else %}nav-link{% endif %}">Dashboard</a>
+        {% endif %}
+        <a href="{% url 'challenges:challenge_list' %}" class="{% if request.resolver_match.app_name == 'challenges' %}nav-link-active{% else %}nav-link{% endif %}">Challenges</a>
+        <a href="{% url 'leaderboard' %}" class="{% if request.resolver_match.url_name == 'leaderboard' %}nav-link-active{% else %}nav-link{% endif %}">Leaderboard</a>
+        <a href="{% url 'teams:team_list' %}" class="{% if request.resolver_match.app_name == 'teams' and request.resolver_match.url_name != 'leaderboard' %}nav-link-active{% else %}nav-link{% endif %}">Teams</a>
+        <a href="{% url 'core:rules' %}" class="{% if request.resolver_match.url_name == 'rules' %}nav-link-active{% else %}nav-link{% endif %}">Rules</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'accounts:profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}nav-link-active{% else %}nav-link{% endif %}">Profile</a>
+        {% endif %}
+        {% if user.is_staff %}
+        <a href="{% url 'core:admin_overview' %}" class="nav-link text-purple hover:text-purple">Admin</a>
+        {% endif %}
+      </div>
+
+      <div class="hidden items-center gap-3 lg:flex">
+        {% if user.is_authenticated %}
+          <span class="text-sm text-ink-muted">{{ user.profile.display_name|default:user.username }}</span>
+          <form method="post" action="{% url 'accounts:logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-ghost">Sign out</button>
+          </form>
+        {% else %}
+          <a href="{% url 'accounts:login' %}" class="btn-secondary">Sign in</a>
+        {% endif %}
+      </div>
+
+      <button id="mobile-menu-button" class="lg:hidden btn-ghost p-2" aria-label="Toggle menu" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </nav>
+
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-border-subtle bg-void px-4 py-3 space-y-1">
+      <a href="{% url 'core:home' %}" class="nav-link block">Home</a>
+      {% if user.is_authenticated %}<a href="{% url 'core:dashboard' %}" class="nav-link block">Dashboard</a>{% endif %}
+      <a href="{% url 'challenges:challenge_list' %}" class="nav-link block">Challenges</a>
+      <a href="{% url 'leaderboard' %}" class="nav-link block">Leaderboard</a>
+      <a href="{% url 'teams:team_list' %}" class="nav-link block">Teams</a>
+      <a href="{% url 'core:rules' %}" class="nav-link block">Rules</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'accounts:profile' %}" class="nav-link block">Profile</a>
+        {% if user.is_staff %}<a href="{% url 'core:admin_overview' %}" class="nav-link block text-purple">Admin</a>{% endif %}
+        <form method="post" action="{% url 'accounts:logout' %}" class="pt-2">
+          {% csrf_token %}
+          <button type="submit" class="btn-ghost w-full justify-start">Sign out</button>
+        </form>
+      {% else %}
+        <a href="{% url 'accounts:login' %}" class="nav-link block text-cyan">Sign in</a>
+      {% endif %}
+    </div>
+  </header>
+
+  {% if messages %}
+  <div class="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+    <div class="space-y-2">
+      {% for message in messages %}
+      <div class="glass-card flex items-start gap-3 px-4 py-3 text-sm {% if message.tags == 'error' %}border-danger/40 text-danger{% elif message.tags == 'success' %}border-green/40 text-green-soft{% elif message.tags == 'warning' %}border-amber/40 text-amber{% else %}text-ink{% endif %}">
+        <span>{{ message }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <main id="main-content" class="flex-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="border-t border-border-subtle bg-void-soft">
+    <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="grid gap-8 sm:grid-cols-3">
+        <div>
+          <div class="flex items-center gap-2">
+            {% include "partials/_logo.html" with size=24 %}
+            <span class="font-display text-sm font-semibold text-ink">NOVA Cyber Network</span>
+          </div>
+          <p class="mt-3 text-sm text-ink-muted">A student-founded, student-led cybersecurity community connecting Northern Virginia high schools.</p>
+        </div>
+        <div>
+          <p class="section-label mb-3">NOVA CTF 2026</p>
+          <p class="text-sm text-ink-muted">October 17&ndash;18, 2026</p>
+          <p class="text-sm text-ink-muted">Online &middot; Team-based</p>
+          <a href="{% url 'core:rules' %}" class="mt-2 inline-block text-sm text-cyan-soft hover:underline">Competition rules &rarr;</a>
+        </div>
+        <div>
+          <p class="section-label mb-3">Contact</p>
+          <p class="text-sm text-ink-muted">{{ CONTACT_EMAIL }}</p>
+          <p class="mt-3 text-xs text-ink-faint">John Champe &middot; Academies of Loudoun &middot; Lightridge &middot; Freedom</p>
+        </div>
+      </div>
+      <div class="divider-glow my-8"></div>
+      <p class="text-center text-xs text-ink-faint">&copy; 2026 NOVA Cyber Network. Built by students, for students.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('mobile-menu-button').addEventListener('click', function () {
+      const menu = document.getElementById('mobile-menu');
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', String(!expanded));
+      menu.classList.toggle('hidden');
+    });
+  </script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

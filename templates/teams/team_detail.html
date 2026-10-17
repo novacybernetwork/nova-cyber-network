@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ team.name }} — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <p class="section-label">Team</p>
+      <h1 class="mt-2 font-display text-3xl font-semibold text-ink">{{ team.name }}</h1>
+      {% if team.is_disqualified %}<span class="badge-hard mt-2 inline-flex">Disqualified</span>{% endif %}
+    </div>
+    {% if team.captain_id == user.id %}
+    <a href="{% url 'teams:team_manage' %}" class="btn-secondary">Manage team</a>
+    {% endif %}
+  </div>
+
+  {% if team.description %}<p class="mt-4 text-sm text-ink-muted">{{ team.description }}</p>{% endif %}
+
+  <div class="mt-6 grid grid-cols-3 gap-4">
+    <div class="stat-tile"><span class="font-display text-2xl font-bold text-cyan">{{ team.total_points }}</span><span class="text-xs text-ink-muted">Points</span></div>
+    <div class="stat-tile"><span class="font-display text-2xl font-bold text-green-soft">{{ members|length }}</span><span class="text-xs text-ink-muted">Members</span></div>
+    <div class="stat-tile"><span class="font-display text-2xl font-bold text-purple">{{ team.solves.count }}</span><span class="text-xs text-ink-muted">Solves</span></div>
+  </div>
+
+  <div class="glass-card mt-8 p-6">
+    <h2 class="font-display text-lg font-semibold text-ink">Roster</h2>
+    <div class="mt-4 divide-y divide-border-subtle">
+      {% for m in members %}
+      <div class="flex items-center justify-between py-3">
+        <div>
+          <p class="text-ink">{{ m.user.profile.display_name|default:m.user.username }}</p>
+          <p class="text-xs text-ink-muted">{{ m.user.profile.school|default:"" }}</p>
+        </div>
+        {% if m.role == "captain" %}<span class="badge-cyan">Captain</span>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

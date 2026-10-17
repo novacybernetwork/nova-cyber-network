@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Create a team — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto flex min-h-[60vh] max-w-md flex-col justify-center px-4 py-16 sm:px-6">
+  <div class="glass-card p-8">
+    <p class="section-label">Teams</p>
+    <h1 class="mt-2 font-display text-2xl font-semibold text-ink">Create a team</h1>
+    <p class="mt-1 text-sm text-ink-muted">You'll be the captain. Up to {{ competition.max_team_size }} members total.</p>
+
+    <form method="post" class="mt-6 space-y-4">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      <div class="rounded-lg border border-danger/40 bg-danger/10 px-4 py-2 text-sm text-danger">{{ form.non_field_errors|join:" " }}</div>
+      {% endif %}
+      {% for field in form %}
+      <div>
+        <label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% for error in field.errors %}<p class="mt-1 text-xs text-danger">{{ error }}</p>{% endfor %}
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn-primary w-full">Create team</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

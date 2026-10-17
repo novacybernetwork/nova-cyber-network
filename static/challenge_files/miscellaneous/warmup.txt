@@ -1,0 +1,5 @@
+Welcome to NOVA CTF 2026! Every challenge submits the same way: decode this, submit the result.
+
+Tk9WQXt3ZWxjb21lX3RvX3RoZV9uZXR3b3JrfQ==
+
+(Hint: this encoding uses 64 characters and is everywhere on the web.)

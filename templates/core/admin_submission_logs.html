@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Submission logs — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <p class="section-label">Organizer tools</p>
+      <h1 class="mt-2 font-display text-3xl font-semibold text-ink">Submission logs</h1>
+    </div>
+    <a href="{% url 'core:admin_overview' %}" class="btn-secondary">&larr; Back to overview</a>
+  </div>
+  <p class="mt-2 text-sm text-ink-muted">Rows highlighted in red show 6+ incorrect attempts on the same challenge within 10 minutes.</p>
+
+  <div class="glass-card mt-6 overflow-x-auto">
+    <table class="w-full text-left text-sm">
+      <thead class="border-b border-border-subtle text-xs uppercase tracking-wider text-ink-muted">
+        <tr>
+          <th class="px-4 py-3">Time (UTC)</th>
+          <th class="px-4 py-3">User</th>
+          <th class="px-4 py-3">Team</th>
+          <th class="px-4 py-3">Challenge</th>
+          <th class="px-4 py-3">Result</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border-subtle">
+        {% for s in submissions %}
+        <tr class="table-row-hover {% if s.is_flagged %}bg-danger/5{% endif %}">
+          <td class="px-4 py-2.5 font-mono text-xs text-ink-muted">{{ s.created_at|date:"Y-m-d H:i:s" }}</td>
+          <td class="px-4 py-2.5">{{ s.user.username }}</td>
+          <td class="px-4 py-2.5">{{ s.team.name }}</td>
+          <td class="px-4 py-2.5">{{ s.challenge.title }}</td>
+          <td class="px-4 py-2.5">
+            {% if s.is_correct %}<span class="badge-easy">Correct</span>
+            {% elif s.is_flagged %}<span class="badge-hard">Flagged — repeated</span>
+            {% else %}<span class="badge-neutral">Incorrect</span>{% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="px-4 py-8 text-center text-ink-faint">No submissions yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

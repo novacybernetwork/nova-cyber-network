@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Access denied — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto flex min-h-[70vh] max-w-lg flex-col items-center justify-center px-4 text-center">
+  <p class="font-mono text-sm text-danger">403</p>
+  <h1 class="mt-2 font-display text-3xl font-semibold text-ink">Access denied</h1>
+  <p class="mt-2 text-sm text-ink-muted">
+    Either you don't have permission for this page, or you've made too many requests. Please wait a moment and try again.
+  </p>
+  <a href="/" class="btn-primary mt-6 inline-flex">Back to home</a>
+</div>
+{% endblock %}

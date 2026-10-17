@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+  <p class="section-label">Welcome back</p>
+  <h1 class="mt-2 font-display text-3xl font-semibold text-ink">{{ user.profile.display_name|default:user.username }}</h1>
+
+  <div class="mt-8 grid gap-6 lg:grid-cols-3">
+    <div class="glass-card p-6 lg:col-span-2">
+      <div class="flex items-center justify-between">
+        <h2 class="font-display text-lg font-semibold text-ink">{{ competition.name|default:"No active competition" }}</h2>
+        {% if competition %}
+          {% if competition_status == "live" %}<span class="badge-live">Live</span>
+          {% elif competition_status == "upcoming" %}<span class="badge-cyan">Upcoming</span>
+          {% else %}<span class="badge-neutral">Ended</span>{% endif %}
+        {% endif %}
+      </div>
+      {% if competition %}
+      <p class="mt-2 text-sm text-ink-muted">
+        {{ competition.start_time_local|date:"M j, Y g:i A" }} &ndash; {{ competition.end_time_local|date:"M j, Y g:i A" }} ET
+      </p>
+      {% endif %}
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="{% url 'challenges:challenge_list' %}" class="btn-primary">Browse Challenges</a>
+        <a href="{% url 'leaderboard' %}" class="btn-secondary">Leaderboard</a>
+        {% if not membership %}<a href="{% url 'teams:team_create' %}" class="btn-secondary">Create a Team</a>{% endif %}
+      </div>
+    </div>
+
+    <div class="glass-card p-6">
+      <h2 class="font-display text-lg font-semibold text-ink">Your team</h2>
+      {% if membership %}
+        <p class="mt-3 text-xl font-semibold text-cyan-soft">{{ membership.team.name }}</p>
+        <p class="text-sm text-ink-muted">{{ membership.team.member_count }} member{{ membership.team.member_count|pluralize }} &middot; {{ membership.team.total_points }} pts</p>
+        <a href="{% url 'teams:team_detail' slug=membership.team.slug %}" class="mt-4 inline-block text-sm text-cyan-soft hover:underline">View team &rarr;</a>
+      {% else %}
+        <p class="mt-3 text-sm text-ink-muted">You haven't joined a team yet.</p>
+        <div class="mt-4 flex flex-col gap-2">
+          <a href="{% url 'teams:team_create' %}" class="btn-primary">Create a team</a>
+          <a href="{% url 'teams:team_join' %}" class="btn-secondary">Join with a code</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if announcements %}
+  <div class="mt-10">
+    <p class="section-label">Announcements</p>
+    <div class="mt-4 space-y-3">
+      {% for a in announcements %}
+      <div class="glass-card p-5">
+        <h3 class="font-semibold text-ink">{{ a.title }}</h3>
+        <p class="mt-1 text-sm text-ink-muted">{{ a.body|linebreaksbr }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

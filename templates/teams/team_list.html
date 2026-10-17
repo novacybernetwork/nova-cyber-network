@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Teams — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-5xl px-4 py-14 sm:px-6">
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <p class="section-label">Roster</p>
+      <h1 class="mt-2 font-display text-3xl font-semibold text-ink">Teams</h1>
+    </div>
+    <div class="flex gap-3">
+      <a href="{% url 'teams:team_join' %}" class="btn-secondary">Join a team</a>
+      <a href="{% url 'teams:team_create' %}" class="btn-primary">Create a team</a>
+    </div>
+  </div>
+
+  <div class="mt-8 grid gap-4 sm:grid-cols-2">
+    {% for team in teams %}
+    <a href="{% url 'teams:team_detail' slug=team.slug %}" class="glass-card-hover block p-5">
+      <div class="flex items-center justify-between">
+        <h2 class="font-display font-semibold text-ink">{{ team.name }}</h2>
+        {% if team.is_disqualified %}<span class="badge-hard">DQ</span>{% endif %}
+      </div>
+      <p class="mt-1 text-sm text-ink-muted">{{ team.member_count }} member{{ team.member_count|pluralize }} &middot; captain {{ team.captain.profile.display_name|default:team.captain.username }}</p>
+      <p class="mt-2 font-mono text-sm text-cyan-soft">{{ team.total_points }} pts</p>
+    </a>
+    {% empty %}
+    <div class="glass-card p-8 text-center text-sm text-ink-muted sm:col-span-2">No teams yet. Be the first to create one!</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

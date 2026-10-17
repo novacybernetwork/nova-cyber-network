@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Rules — {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+  <p class="section-label">Fair play</p>
+  <h1 class="mt-2 font-display text-3xl font-semibold text-ink">Competition rules</h1>
+  <p class="mt-2 text-sm text-ink-muted">{{ competition.name|default:"NOVA CTF" }} &middot; please read carefully before competing.</p>
+
+  <div class="glass-card mt-8 p-6 sm:p-8">
+    {% if competition and competition.rules_list %}
+    <ol class="space-y-4">
+      {% for rule in competition.rules_list %}
+      <li class="flex gap-4">
+        <span class="font-mono text-sm text-cyan">{{ forloop.counter|stringformat:"02d" }}</span>
+        <span class="text-sm text-ink-muted">{{ rule }}</span>
+      </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+    <p class="text-sm text-ink-muted">Rules will be published before the competition begins.</p>
+    {% endif %}
+  </div>
+
+  <div class="glass-card mt-6 p-6 text-sm text-ink-muted">
+    Questions or disputes? Reach the organizers at
+    <a href="mailto:{{ competition.contact_email|default:CONTACT_EMAIL }}" class="text-cyan-soft hover:underline">{{ competition.contact_email|default:CONTACT_EMAIL }}</a>.
+  </div>
+</div>
+{% endblock %}

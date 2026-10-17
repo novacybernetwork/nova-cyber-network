@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/staticfiles/
+/media/
+
+# Environment variables / secrets
+.env
+
+# Tailwind standalone CLI binaries (downloaded by build.sh / run locally, not committed).
+# static/css/output.css is intentionally NOT ignored — it's committed so the app looks right
+# immediately after a fresh clone, and build.sh regenerates it fresh on every Render deploy anyway.
+/bin/
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Test artifacts
+.coverage
+htmlcov/

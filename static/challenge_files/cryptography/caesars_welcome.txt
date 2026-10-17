@@ -1,0 +1,6 @@
+A short welcome message was intercepted, encrypted with a classic substitution shift.
+
+Ciphertext:
+ABIN{pnrfne_fnlf_uv}
+
+The alphabet was shifted by the same classic amount everyone's favorite Roman general used.

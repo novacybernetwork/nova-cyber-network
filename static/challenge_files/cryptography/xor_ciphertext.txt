@@ -1,0 +1,6 @@
+A flag was encrypted by XOR-ing every byte with a single, unknown one-byte key (0x00-0xFF).
+
+Ciphertext (hex):
+0c0d1403393a2d301d29273b311d2330271d24372c3f
+
+The plaintext starts with "NOVA{" — that's enough to recover the key.

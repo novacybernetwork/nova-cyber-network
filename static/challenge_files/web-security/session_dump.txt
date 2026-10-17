@@ -1,0 +1,5 @@
+HTTP/1.1 200 OK
+Date: Tue, 17 Oct 2026 04:12:01 GMT
+Content-Type: text/html; charset=utf-8
+Set-Cookie: session=eyJ1c2VyIjoiZ3Vlc3QiLCJmbGFnX2hleCI6IjRlNGY1NjQxN2I2MzMwMzA2YjY5MzM3MzVmNmM2OTY1NWY2MTYyNmY3NTc0NWY3NDcyNzU3Mzc0N2QifQ==; Path=/; HttpOnly
+X-Powered-By: nova-shop-demo/1.0

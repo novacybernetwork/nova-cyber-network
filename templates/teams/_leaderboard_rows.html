@@ -1,0 +1,18 @@
+{% for team in teams %}
+<tr class="table-row-hover {% if forloop.counter == 1 %}bg-cyan/5{% elif forloop.counter <= 3 %}bg-white/[0.02]{% endif %}">
+  <td class="px-4 py-3 font-mono text-sm">
+    {% if forloop.counter == 1 %}<span class="text-amber">#1</span>
+    {% elif forloop.counter == 2 %}<span class="text-ink-muted">#2</span>
+    {% elif forloop.counter == 3 %}<span class="text-cyan-soft">#3</span>
+    {% else %}<span class="text-ink-faint">#{{ forloop.counter }}</span>{% endif %}
+  </td>
+  <td class="px-4 py-3">
+    <a href="{% url 'teams:team_detail' slug=team.slug %}" class="font-medium text-ink hover:text-cyan">{{ team.name }}</a>
+  </td>
+  <td class="px-4 py-3 font-mono text-sm text-cyan-soft">{{ team.score }}</td>
+  <td class="px-4 py-3 text-sm text-ink-muted">{{ team.solve_count }}</td>
+  <td class="px-4 py-3 text-xs text-ink-faint">{{ team.last_solve|date:"M j, H:i"|default:"—" }}</td>
+</tr>
+{% empty %}
+<tr><td colspan="5" class="px-4 py-10 text-center text-ink-faint">No teams on the board yet.</td></tr>
+{% endfor %}
