@@ -21,8 +21,10 @@ nova-cyber-network/
 ├── challenges/           # ChallengeCategory, Challenge, Attachment, Hint, Submission, Solve, scoring service
 ├── core/                 # Home, dashboard, rules, health check, custom admin dashboard, audit log
 ├── templates/            # Django templates (base.html + one dir per app)
+├── tailwind_src/input.css # Tailwind source (theme tokens, components) — deliberately NOT under
+│                          # static/, since whitenoise's collectstatic post-processing chokes on
+│                          # its `@import "tailwindcss"` line if it gets collected as a static asset
 ├── static/
-│   ├── css/input.css     # Tailwind source (theme tokens, components)
 │   ├── css/output.css    # Built CSS (generated — see "Building CSS" below)
 │   └── challenge_files/  # Starter challenge attachments, organized by category
 ├── build.sh               # Render build script (installs deps, builds CSS, migrates, seeds data)
@@ -54,12 +56,12 @@ python manage.py runserver
 Visit `http://127.0.0.1:8000/`. By default this uses a local SQLite file (`db.sqlite3`) — no
 database server required. Static files (including Tailwind CSS) are served directly by Django's
 dev-server static handler; no build step is needed for local development **unless** you edit
-`static/css/input.css` (see below).
+`tailwind_src/input.css` (see below).
 
 ### Building CSS
 
 Tailwind CSS is built with the [standalone CLI](https://tailwindcss.com/blog/standalone-cli) (no
-Node.js needed). If you change `static/css/input.css` or add new Tailwind classes to a template,
+Node.js needed). If you change `tailwind_src/input.css` or add new Tailwind classes to a template,
 rebuild the compiled CSS:
 
 ```bash
@@ -69,8 +71,12 @@ rebuild the compiled CSS:
 curl -sL -o bin/tailwindcss \
   https://github.com/tailwindlabs/tailwindcss/releases/download/v4.3.3/tailwindcss-macos-x64
 chmod +x bin/tailwindcss
-./bin/tailwindcss -i static/css/input.css -o static/css/output.css --minify
+./bin/tailwindcss -i tailwind_src/input.css -o static/css/output.css --minify
 ```
+
+Note: `tailwind_src/input.css` lives outside `static/` on purpose — if it's collected as a static
+asset, WhiteNoise's `collectstatic` post-processing tries to resolve its `@import "tailwindcss"`
+line as a literal file path and fails the build. Keep any future source CSS out of `static/` too.
 
 `build.sh` does this automatically on every Render deploy (downloading the Linux x64 binary), so
 you only need to do this manually for local iteration.

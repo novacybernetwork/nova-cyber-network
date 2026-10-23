@@ -14,7 +14,7 @@ if [ ! -f "$TAILWIND_BIN" ]; then
     "https://github.com/tailwindlabs/tailwindcss/releases/download/${TAILWIND_VERSION}/tailwindcss-linux-x64"
   chmod +x "$TAILWIND_BIN"
 fi
-"$TAILWIND_BIN" -i static/css/input.css -o static/css/output.css --minify
+"$TAILWIND_BIN" -i tailwind_src/input.css -o static/css/output.css --minify
 
 echo "--- Collecting static files ---"
 python manage.py collectstatic --noinput
