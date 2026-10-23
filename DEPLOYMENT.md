@@ -136,13 +136,13 @@ participants/teams/solves and 12 challenges until you start inviting people).
 
 ## Step 8 — Double-check the competition window and challenges
 
-Everything is pre-seeded for **NOVA CTF 2026, Oct 17 00:00 → Oct 19 00:00 America/New_York**
-(submissions close at that instant, covering through 11:59 PM Oct 18 ET), with the 12 starter
+Everything is pre-seeded for **NOVA CTF 2026, Oct 24 00:00 → Oct 26 00:00 America/New_York**
+(submissions close at that instant, covering through 11:59 PM Oct 25 ET), with the 12 starter
 challenges published. If you need to adjust anything:
 
 - **Dates/registration/pause switch:** Django admin → Competitions → NOVA Cyber Network CTF 2026.
   Times are stored in UTC in the form but the admin list/detail views are what you edit directly —
-  enter them in UTC (e.g. Oct 17 2026 12:00 AM ET = Oct 17 2026 04:00 AM UTC during EDT).
+  enter them in UTC (e.g. Oct 24 2026 12:00 AM ET = Oct 24 2026 04:00 AM UTC during EDT).
 - **Add more challenges:** Django admin → Challenges → Challenges → **Add**. For attachments, the
   file must already exist in the repo under `static/challenge_files/<category>/` — commit it and
   redeploy before it'll show up in the attachment picker.

@@ -49,8 +49,8 @@ class Command(BaseCommand):
             ChallengeCategory.objects.update_or_create(name=name, defaults={"icon_name": icon, "order": order})
         self.stdout.write(self.style.SUCCESS(f"Ensured {len(DEFAULT_CATEGORIES)} challenge categories."))
 
-        start = datetime(2026, 10, 17, 0, 0, 0, tzinfo=EASTERN)
-        end = datetime(2026, 10, 19, 0, 0, 0, tzinfo=EASTERN)  # exclusive boundary: submissions stop at midnight 10/19 ET
+        start = datetime(2026, 10, 24, 0, 0, 0, tzinfo=EASTERN)
+        end = datetime(2026, 10, 26, 0, 0, 0, tzinfo=EASTERN)  # exclusive boundary: submissions stop at midnight 10/26 ET
 
         competition, created = Competition.objects.get_or_create(
             slug="nova-ctf-2026",

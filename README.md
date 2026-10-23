@@ -2,7 +2,7 @@
 
 A full-stack, team-based Capture The Flag competition platform built for **NOVA Cyber Network**,
 a student-led cybersecurity community connecting four Northern Virginia high schools (John Champe,
-Academies of Loudoun, Lightridge, and Freedom). Built for **NOVA CTF 2026** (October 17–18, 2026)
+Academies of Loudoun, Lightridge, and Freedom). Built for **NOVA CTF 2026** (October 24–25, 2026)
 and designed to support future competitions.
 
 **Stack:** Django 5.1 + PostgreSQL (SQLite for local dev) + Tailwind CSS v4 + HTMX, deployed as a

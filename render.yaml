@@ -3,7 +3,7 @@
 # 15 minutes of inactivity and takes 30-60s to "cold start" on the next request — unacceptable
 # during a live 48-hour competition where a judge's or participant's first request could time out.
 # Render's free Postgres plan also **expires 30 days after creation** and is deleted — fine if you
-# provision it close to the Oct 17-18, 2026 event, but it will NOT persist indefinitely. Switch
+# provision it close to the Oct 24-25, 2026 event, but it will NOT persist indefinitely. Switch
 # either plan value to "free" if you accept those tradeoffs (e.g. for local-only testing of the
 # Blueprint itself), but we do not recommend it for the real event.
 services:
@@ -12,7 +12,11 @@ services:
     runtime: python
     plan: starter
     region: oregon
-    branch: main
+    # This repo's `main` branch hosts an unrelated project (the club's public marketing site).
+    # The Django CTF platform lives on `ctf-platform` — when creating the Blueprint in the Render
+    # dashboard, select the `ctf-platform` branch so Render reads *this* render.yaml, and this
+    # field keeps future auto-deploys tracking that same branch rather than defaulting to main.
+    branch: ctf-platform
     buildCommand: "./build.sh"
     startCommand: "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
     healthCheckPath: /health/
