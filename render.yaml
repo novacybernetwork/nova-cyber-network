@@ -1,11 +1,18 @@
-# NOTE ON COST: `plan: starter` below is a PAID tier (~$7/mo at time of writing) for both the web
-# service and left as a comment for the database. Render's free web service tier spins down after
-# 15 minutes of inactivity and takes 30-60s to "cold start" on the next request — unacceptable
-# during a live 48-hour competition where a judge's or participant's first request could time out.
-# Render's free Postgres plan also **expires 30 days after creation** and is deleted — fine if you
-# provision it close to the Oct 24-25, 2026 event, but it will NOT persist indefinitely. Switch
-# either plan value to "free" if you accept those tradeoffs (e.g. for local-only testing of the
-# Blueprint itself), but we do not recommend it for the real event.
+# NOTE ON COST: both services below default to a paid tier (~$7/mo each, ~$14/mo total).
+# Render's free web service tier spins down after 15 minutes of inactivity and takes 30-60s to
+# "cold start" on the next request — unacceptable during a live 48-hour competition where a
+# participant's first request could time out. Render's free Postgres plan also **expires 30 days
+# after creation** and is deleted — fine if you provision it close to the Oct 24-25, 2026 event,
+# but it will NOT persist indefinitely. Switch either plan value to "free" below if you accept
+# those tradeoffs (e.g. for local-only testing of the Blueprint itself), but we do not recommend
+# it for the real event.
+#
+# Plan naming: Render replaced the old "starter/standard/pro" names with "<cpu>c-<ram>" compute
+# plan IDs in August 2026. The web service's legacy name `starter` is still accepted by Render's
+# tooling, but as of this writing Render's dashboard rejects the legacy Postgres names (including
+# `starter`) for newly-created databases, so the database below uses the current canonical ID
+# instead. `0.1c-256mb` is Render's direct replacement for what used to be Postgres "Starter"
+# (0.1 CPU / 256 MB RAM) — the same tier and roughly the same price, just renamed.
 services:
   - type: web
     name: nova-ctf
@@ -65,6 +72,7 @@ services:
 
 databases:
   - name: nova-ctf-db
-    plan: starter # see cost note above; "free" expires 30 days after creation
+    plan: 0.1c-256mb # current canonical ID for the old "Starter" Postgres tier — see cost note above
+    diskSizeGB: 1 # plenty for a single 30-50 participant event; "free" expires 30 days after creation
     databaseName: nova_ctf
     user: nova_ctf

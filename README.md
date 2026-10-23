@@ -109,11 +109,13 @@ git push -u origin main
 > plan and a troubleshooting table), see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 1. Push this repository to GitHub (see above).
-2. In the Render dashboard: **New → Blueprint**, select your repository. Render will read
-   `render.yaml` and propose a **Web Service** (`nova-ctf`) and a **PostgreSQL database**
-   (`nova-ctf-db`).
+2. In the Render dashboard: **New → Blueprint**, select your repository. **Select the
+   `ctf-platform` branch** when prompted (this repo's `main` branch hosts an unrelated project —
+   Render will read the wrong `render.yaml` if you leave it on `main`). Render will then read
+   `render.yaml` from `ctf-platform` and propose a **Web Service** (`nova-ctf`) and a **PostgreSQL
+   database** (`nova-ctf-db`) as new resources.
 3. **Before clicking Apply**, read the cost note at the top of `render.yaml`: it defaults both the
-   web service and database to the paid **Starter** plan. This is intentional — the free web
+   web service and database to a paid plan (~$7/mo each). This is intentional — the free web
    service tier cold-starts after inactivity (bad during a live event) and the free Postgres plan
    **expires 30 days after creation**. Switch either `plan:` to `free` if you accept those
    tradeoffs.

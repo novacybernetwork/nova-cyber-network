@@ -57,18 +57,27 @@ Don't click **Apply** yet — read Step 3 first.
 
 ## Step 3 — Understand the cost before applying
 
-`render.yaml` sets both the web service and the database to the paid **Starter** plan
-(roughly $7/month each at time of writing). This is intentional, not an oversight:
+`render.yaml` sets both the web service (`plan: starter`) and the database (`plan: 0.1c-256mb`,
+Render's current ID for the same tier formerly called Postgres "Starter") to a paid plan — roughly
+$7/month each at time of writing. This is intentional, not an oversight:
 
-| Plan | Free tier risk | Why Starter is used here |
+| Plan | Free tier risk | Why the paid tier is used here |
 |---|---|---|
 | Web service | Spins down after ~15 min idle; the next request takes 30-60s to "cold start" | A live 48-hour competition can't have a participant's first request time out |
 | PostgreSQL | **Deleted automatically 30 days after creation** | You'd lose all registrations/scores if the DB expires mid-event |
 
 If you want to test the Blueprint itself for free first (e.g. a dry run weeks before the event),
-edit `render.yaml` and change `plan: starter` to `plan: free` for the `web` service and/or the
-database — but switch back to `starter` before the real event, and don't let a free database sit
-around for 30 days before the competition.
+edit `render.yaml` and change `plan: starter` to `plan: free` for the `web` service, and/or
+`plan: 0.1c-256mb` to `plan: free` for the database — but switch both back before the real event,
+and don't let a free database sit around for 30 days before the competition.
+
+Render renamed its compute plan IDs in August 2026 (legacy names like `starter`/`standard`/`pro`
+became `<cpu>c-<ram>` IDs like `0.5c-512mb`/`1c-2g`). The legacy web service name `starter` still
+works, but Render's dashboard now rejects legacy Postgres plan names for *newly created* databases
+— hence the database using `0.1c-256mb` instead of `starter`. If Render's Blueprint UI flags
+either plan value as invalid when you apply it, check
+[Render's current compute plan docs](https://render.com/docs/compute-plans) for the latest IDs —
+plan naming is the one part of this setup most likely to drift after this was written.
 
 ---
 
