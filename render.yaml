@@ -28,6 +28,14 @@ services:
     startCommand: "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"
     healthCheckPath: /health/
     envVars:
+      # Render's two documented ways to pin a Python version are the PYTHON_VERSION env var
+      # (highest precedence) or a bare-version .python-version file — NOT a Heroku-style
+      # runtime.txt, which Render does not read at all (confirmed the hard way: a runtime.txt
+      # here was silently ignored and Render built with its own current default Python instead,
+      # which didn't have a wheel for the pinned psycopg version). Both are set, redundantly, so
+      # local tooling that reads .python-version and Render itself agree.
+      - key: PYTHON_VERSION
+        value: "3.13.7"
       - key: IS_PRODUCTION
         value: "true"
       - key: DEBUG
