@@ -3,6 +3,7 @@ import io
 
 from django import forms
 from django.contrib import admin, messages
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import path, reverse
 from django.utils.html import format_html
@@ -29,7 +30,7 @@ class ApprovedMemberAdmin(admin.ModelAdmin):
     search_fields = ("name", "email")
     readonly_fields = ("invite_token", "claim_link", "is_claimed", "claimed_by", "claimed_at", "imported_at")
     change_list_template = "admin/accounts/approvedmember/change_list.html"
-    actions = ["approve_requests"]
+    actions = ["approve_requests", "export_claim_links"]
 
     @admin.display(description="Claim link")
     def claim_link(self, obj):
@@ -44,6 +45,18 @@ class ApprovedMemberAdmin(admin.ModelAdmin):
         for member in queryset:
             log_action(request.user, "membership.approve_request", target=member)
         self.message_user(request, f"Approved {updated} access requests. They can now use their claim link.")
+
+    @admin.action(description="Export claim links (CSV) for selected members")
+    def export_claim_links(self, request, queryset):
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="claim_links.csv"'
+        writer = csv.writer(response)
+        writer.writerow(["name", "email", "school", "is_claimed", "claim_link"])
+        for member in queryset:
+            url = request.build_absolute_uri(reverse("accounts:claim_invite", args=[member.invite_token]))
+            writer.writerow([member.name, member.email, member.school or "", member.is_claimed, url])
+        log_action(request.user, "membership.export_claim_links", metadata={"count": queryset.count()})
+        return response
 
     @admin.display(description="Email")
     def masked_email(self, obj):

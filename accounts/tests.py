@@ -129,3 +129,35 @@ class UnauthorizedAdminAccessTests(TestCase):
         self.client.login(username="regular", password="RegularPass123!")
         response = self.client.get(reverse("core:admin_export_results"))
         self.assertEqual(response.status_code, 302)
+
+
+class ClaimLinkExportTests(TestCase):
+    def setUp(self):
+        self.staff_user = User.objects.create_user(
+            username="organizer", password="OrganizerPass123!", is_staff=True, is_superuser=True
+        )
+        self.member = ApprovedMember.objects.create(name="Jordan Lee", email="jordan@example.org")
+
+    def test_export_action_returns_csv_with_absolute_claim_link(self):
+        self.client.login(username="organizer", password="OrganizerPass123!")
+        response = self.client.post(
+            "/admin/accounts/approvedmember/",
+            {"action": "export_claim_links", "_selected_action": [self.member.pk]},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "text/csv")
+        body = b"".join(response.streaming_content).decode() if response.streaming else response.content.decode()
+        self.assertIn("Jordan Lee", body)
+        self.assertIn("jordan@example.org", body)
+        self.assertIn(f"/accounts/claim/{self.member.invite_token}/", body)
+        # Built from an absolute URL, not just the bare path.
+        self.assertIn("http://testserver/accounts/claim/", body)
+
+    def test_regular_user_cannot_export_claim_links(self):
+        regular = User.objects.create_user(username="regular2", password="RegularPass123!")
+        self.client.login(username="regular2", password="RegularPass123!")
+        response = self.client.post(
+            "/admin/accounts/approvedmember/",
+            {"action": "export_claim_links", "_selected_action": [self.member.pk]},
+        )
+        self.assertNotEqual(response.status_code, 200)
